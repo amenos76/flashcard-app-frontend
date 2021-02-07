@@ -3,6 +3,8 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+// import IconButton from '@material-ui/core/IconButton'
+// import MenuIcon from '@material-ui/icons/Menu';
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -20,14 +22,15 @@ export default function MainTabScreen() {
   return (
     <Tab.Navigator
         initialRouteName="Home"
-        activeColor="#e91e63"
-        barStyle={{ backgroundColor: 'black' }}
+        activeColor="#fff"
+        barStyle={{ backgroundColor: '#009387' }}
       >
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={HomeStackScreen}
           options={{
             tabBarLabel: 'Home',
+            tabBarColor: '#009387',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="home" color={color} size={26} />
             ),
@@ -35,9 +38,10 @@ export default function MainTabScreen() {
         />
         <Tab.Screen
           name="My Decks"
-          component={MyDecksScreen}
+          component={MyDecksStackScreen}
           options={{
             tabBarLabel: 'My Decks',
+            tabBarColor: '#008075',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="cards" color={color} size={26} />
             ),
@@ -48,16 +52,18 @@ export default function MainTabScreen() {
           component={CreateDeckScreen}
           options={{
             tabBarLabel: 'Create Deck',
+            tabBarColor: '#00665e',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="card-plus" color={color} size={26} />
             ),
           }}
         />
         <Tab.Screen
-          name="Explore"
+          name="Explore Decks"
           component={ExploreDecksScreen}
           options={{
             tabBarLabel: 'Explore Decks',
+            tabBarColor: '#004d46',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="card-search" color={color} size={26} />
             ),
@@ -81,7 +87,7 @@ const HomeStackScreen = ({navigation}) => {
       <HomeStack.Screen name="Home" component={HomeScreen} options={{
         headerLeft: () => (
           <Icon.Button 
-          name="ios-menu" 
+          name="menu" 
           size={25} 
           backgroundColor="#009387" 
           onPress={() => navigation.openDrawer()} />
@@ -91,23 +97,23 @@ const HomeStackScreen = ({navigation}) => {
   )
 };
 
-const DecksStackScreen = ({navigation}) => {
+const MyDecksStackScreen = ({navigation}) => {
   return (
     <DecksStack.Navigator screenOptions={{
       headerStyle: {
-        backgroundColor: '#009387'
+        backgroundColor: '#008075'
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
         fontWeight: 'bold',
       },
     }}>
-      <DecksStack.Screen name="Decks" component={MyDecksScreen} options={{
+      <DecksStack.Screen name="My Decks" component={MyDecksScreen} options={{
         headerLeft: () => (
           <Icon.Button 
-          name="ios-menu" 
+          name="menu" 
           size={25} 
-          backgroundColor="#009387" 
+          backgroundColor="#008075" 
           onPress={() => navigation.openDrawer()} />
         )
       }}/>
