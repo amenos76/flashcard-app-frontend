@@ -7,6 +7,8 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import MainTabScreen from './screens/MainTabScreen';
+import DrawerContent from './screens/DrawerContent'
+import SettingsScreen from './screens/SettingsScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -15,9 +17,9 @@ const Drawer = createDrawerNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={MainTabScreen} />
-        {/* <Drawer.Screen name="Decks" component={DecksStackScreen} /> */}
+      <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />} >
+        <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
+        <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
