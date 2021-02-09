@@ -6,7 +6,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 // import IconButton from '@material-ui/core/IconButton'
 // import MenuIcon from '@material-ui/icons/Menu';
 
-import Icon from 'react-native-vector-icons/Ionicons'
+// import Icon from 'react-native-vector-icons/Ionicons'
+import { IconButton } from 'react-native-paper';
 
 import HomeScreen from './HomeScreen';
 import MyDecksScreen from './MyDecksScreen';
@@ -49,7 +50,7 @@ export default function MainTabScreen() {
         />
         <Tab.Screen
           name="Create Deck"
-          component={CreateDeckScreen}
+          component={CreateDeckStackScreen}
           options={{
             tabBarLabel: 'Create Deck',
             tabBarColor: '#00665e',
@@ -60,7 +61,7 @@ export default function MainTabScreen() {
         />
         <Tab.Screen
           name="Explore Decks"
-          component={ExploreDecksScreen}
+          component={ExploreDecksStackScreen}
           options={{
             tabBarLabel: 'Explore Decks',
             tabBarColor: '#004d46',
@@ -85,14 +86,16 @@ const HomeStackScreen = ({navigation}) => {
       },
     }}>
       <HomeStack.Screen name="Home" component={HomeScreen} options={{
+        headerTitleAlign: 'center',
         headerLeft: () => (
-          <Icon.Button 
-          name="menu" 
-          size={25} 
-          backgroundColor="#009387" 
-          onPress={() => navigation.openDrawer()} />
-        )
-      }} />
+            <IconButton 
+            icon="menu"
+            color="#fff" 
+            size={25} 
+            backgroundColor="#009387" 
+            onPress={() => navigation.openDrawer()} />
+          )
+        }} />
     </HomeStack.Navigator>
   )
 };
@@ -109,14 +112,68 @@ const MyDecksStackScreen = ({navigation}) => {
       },
     }}>
       <DecksStack.Screen name="My Decks" component={MyDecksScreen} options={{
+        headerTitleAlign: 'center',
         headerLeft: () => (
-          <Icon.Button 
-          name="menu" 
-          size={25} 
-          backgroundColor="#008075" 
-          onPress={() => navigation.openDrawer()} />
-        )
-      }}/>
+            <IconButton 
+            icon="menu"
+            color="#fff" 
+            size={25} 
+            backgroundColor="#009387" 
+            onPress={() => navigation.openDrawer()} />
+          )
+        }} />
+    </DecksStack.Navigator>
+  )
+};
+
+const CreateDeckStackScreen = ({navigation}) => {
+  return (
+    <DecksStack.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: '#00665e'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}>
+      <DecksStack.Screen name="Create Deck" component={CreateDeckScreen} options={{
+        headerTitleAlign: 'center',
+        headerLeft: () => (
+            <IconButton 
+            icon="menu"
+            color="#fff" 
+            size={25} 
+            backgroundColor="#009387" 
+            onPress={() => navigation.openDrawer()} />
+          )
+        }} />
+    </DecksStack.Navigator>
+  )
+};
+
+const ExploreDecksStackScreen = ({navigation}) => {
+  return (
+    <DecksStack.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: '#004d46'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}>
+      <DecksStack.Screen name="Explore Decks" component={ExploreDecksScreen} options={{
+        headerTitleAlign: 'center',
+        headerLeft: () => (
+            <IconButton 
+            icon="menu"
+            color="#fff" 
+            size={25} 
+            backgroundColor="#009387" 
+            onPress={() => navigation.openDrawer()} />
+          )
+        }} />
     </DecksStack.Navigator>
   )
 };
