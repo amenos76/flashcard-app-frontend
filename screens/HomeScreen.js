@@ -5,7 +5,7 @@ import { View, Text, Button, StyleSheet } from 'react-native'
 export default function HomeScreen(props) {
   
   const handlePress = (event) => {
-    props.navigation.navigate("Decks")
+    props.navigation.navigate("My Decks")
   }
 
   return (
