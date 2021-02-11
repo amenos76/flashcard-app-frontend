@@ -1,5 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
+import DeckList from '../components/DeckList'
+import DeckView from '../components/DeckView'
 
 
 import FlashCardContainer from '../components/FlashCardContainer'
@@ -11,9 +13,9 @@ const handlePress = (event) => {
 export default function MyDecksScreen(props) {
   return (
     <View style={styles.container}>
-      <Text>This is my Decks page.</Text>
+      {/* <Text>This is my Decks page.</Text> */}
       
-      <FlashCardContainer />
+      <DeckList />
       
     </View>
   )
