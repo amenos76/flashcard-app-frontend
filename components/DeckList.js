@@ -1,20 +1,25 @@
-import React from 'react'
-import { Dimensions } from 'react-native';
+import React, { useContext } from 'react'
 
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 
 import { getData } from '../utilities/api'
 import DeckView from './DeckView'
 import { colors } from '../utilities/colors'
+import { DataLayerContext } from '../context/DataLayerContext'
 
 export default function DeckList() {
   const sampleDecks = getData()
 
+  const {state} = useContext(DataLayerContext)
+  
+  // const [ {deck}, dispatch ] = useDataLayerValue();
+
   return (
     <ScrollView style={{width: '100%'}}>
       <View style={styles.container}>
+      <Text>{state.user}</Text>
         <View > 
-          {sampleDecks.decks.map(deck => {
+          {state.decks.map(deck => {
             return <DeckView deck={deck} key={deck.id} />
           })}
         </View>
