@@ -43,19 +43,19 @@ export default function DrawerContent(props) {
               />
               <View style={{marginLeft: 15, flexDirection: 'column'}}>
                 <Title style={styles.title}>Augie Menos</Title>
-                <Caption style={StyleSheet.caption}>@amenos76</Caption>
+                <Caption style={StyleSheet.caption}>augie.menos@gmail.com</Caption>
               </View>
             </View>
           </View>
           <View style={styles.row}>
             <View style={styles.section}>
               <Paragraph style={[styles.paragraph, styles.caption]}>80</Paragraph>
-              <Caption style={styles.caption}>Following</Caption>
+              <Caption style={styles.caption}>Cards Answered</Caption>
             </View>
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Paragraph style={[styles.paragraph, styles.caption]}>100</Paragraph>
-              <Caption style={styles.caption}>Followers</Caption>
-            </View>
+              <Caption style={styles.caption}>Unanswered Cards</Caption>
+            </View> */}
           </View>
 
           <Drawer.Section style={styles.drawerSection}>

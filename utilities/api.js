@@ -1,5 +1,4 @@
-const initialData = {
-  decks: [
+const initialData = [
       {
       id: 100,
       name: "Math",
@@ -121,7 +120,6 @@ const initialData = {
       ]
     },
   ]
-}
 
 export const getData = () => {
   return initialData
