@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { StyleSheet, Text, View } from 'react-native'
+
 import { reducer, initialState } from '../reducer/reducer'
 
 export const DataLayerContext = createContext()
