@@ -17,7 +17,7 @@ export default function DeckView( {deck} ) {
 
   return (
     <TouchableOpacity onPress={() => showDeck(deck)}>
-      <View style={styles.container}>
+      <View style={styles.cardContainer}>
         <Text style={styles.titleText}>{deck.name}</Text>
         <Text style={styles.text}>{deck.cards.length} cards</Text>
         <View style={styles.buttonContainer}>
@@ -29,14 +29,11 @@ export default function DeckView( {deck} ) {
   )
 }
 
-const width_proportion = '100%';
-const height_proportion = '40%';
-
 const styles = StyleSheet.create({
-  container: {
+  cardContainer: {
     // flex: .2,
     backgroundColor: '#344B48',
-    width: 350,
+    width: 200,
     height: 215,
     alignItems: 'center',
     justifyContent: 'center',

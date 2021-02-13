@@ -1,21 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import DeckList from '../components/DeckList'
-import DeckView from '../components/DeckView'
 
+import { DataLayerContext } from '../context/DataLayerContext'
 
-import FlashCardContainer from '../components/FlashCardContainer'
 
 const handlePress = (event) => {
   props.navigation.navigate("Home")
 }
 
 export default function MyDecksScreen(props) {
+
+  const { state } = useContext(DataLayerContext)
+
   return (
     <View style={styles.container}>
       {/* <Text>This is my Decks page.</Text> */}
       
-      <DeckList />
+      <DeckList decks={state.userDecks}/>
       
     </View>
   )

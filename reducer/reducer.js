@@ -4,7 +4,7 @@ const SAMPLE_DECKS = getData()
 
 export const initialState = {
         user: "Augie",
-        decks: SAMPLE_DECKS,
+        userDecks: SAMPLE_DECKS,
         
 };
 
