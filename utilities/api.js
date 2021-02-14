@@ -119,6 +119,84 @@ const initialData = [
         },
       ]
     },
+    {
+      id: 52,
+      name: "Deck Name 5",
+      cards: [
+        {
+          id: 1,
+          question: 'Constitution',
+          answer: '1787',
+        },
+        {
+          id: 2,
+          question: 'Civil War',
+          answer: '1861-1865',
+        },
+        {
+          id: 3,
+          question: 'Lexington, Mass. 1775',
+          answer: 'first shots of American Rev.',
+        },
+        {
+          id: 4,
+          question: 'Battle of Saratoga',
+          answer: 'turning point of American Rev.',
+        },
+      ]
+    },
+    {
+      id: 53,
+      name: "Deck Name 6",
+      cards: [
+        {
+          id: 1,
+          question: 'Constitution',
+          answer: '1787',
+        },
+        {
+          id: 2,
+          question: 'Civil War',
+          answer: '1861-1865',
+        },
+        {
+          id: 3,
+          question: 'Lexington, Mass. 1775',
+          answer: 'first shots of American Rev.',
+        },
+        {
+          id: 4,
+          question: 'Battle of Saratoga',
+          answer: 'turning point of American Rev.',
+        },
+      ]
+    },
+    {
+      id: 54,
+      name: "Deck Name 7",
+      cards: [
+        {
+          id: 1,
+          question: 'Constitution',
+          answer: '1787',
+        },
+        {
+          id: 2,
+          question: 'Civil War',
+          answer: '1861-1865',
+        },
+        {
+          id: 3,
+          question: 'Lexington, Mass. 1775',
+          answer: 'first shots of American Rev.',
+        },
+        {
+          id: 4,
+          question: 'Battle of Saratoga',
+          answer: 'turning point of American Rev.',
+        },
+      ]
+    },
   ]
 
 export const getData = () => {
