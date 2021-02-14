@@ -15,6 +15,7 @@ const AppProvider = (props) => {
   const [loading, setLoading] = useState(false)
   const [exploreDecks, setExploreDecks] = useState([])
   const [userDecks, setUserDecks] = useState(SAMPLE_DECKS)
+  const [categories, setCategories] = useState([])
 
   
   
@@ -22,7 +23,7 @@ const AppProvider = (props) => {
   useEffect(() => {
     fetch(baseUrl)
     .then(response => response.json())
-    .then(data => console.log(data.results))
+    .then(data => handleFetch(data.results))
     .catch(error => {
       console.log("Error:", error)
     })
@@ -39,6 +40,7 @@ const AppProvider = (props) => {
   const formatData = (questionItem, index) => {
       let newCardObject = {
         id: `${index}-${Date.now()}`,
+        category: questionItem.category,
         question: decodeHTMLEntities(questionItem.question),
         answer: decodeHTMLEntities(questionItem.correct_answer),
       }
@@ -52,10 +54,12 @@ const AppProvider = (props) => {
           loading,
           exploreDecks,
           userDecks,
+          categories,
           setUser,
           setLoading,
           setExploreDecks,
           setUserDecks,
+          setCategories
         }}
       >
         {props.children}

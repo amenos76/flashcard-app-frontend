@@ -2,7 +2,7 @@ import React from 'react'
 
 import { View, Text, StyleSheet, Button } from 'react-native'
 
-// import { DataLayerContext } from '../context/DataLayerContext'
+
 import FlashCard from './FlashCard';
 
 export default function FlashCardContainer() {

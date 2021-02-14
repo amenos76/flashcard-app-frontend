@@ -4,18 +4,22 @@ import { View, Text, StyleSheet, ScrollView, FlatList, SafeAreaView} from 'react
 
 import DeckView from './DeckView'
 import { colors } from '../utilities/colors'
+import { AppContext } from '../provider/AppProvider'
 
 
 
-export default function DeckList( {decks}) {
+export default function DeckList() {
   
+  const state = useContext(AppContext)
+  
+
   return (
     <View style={styles.container}>
       <FlatList
         contentContainerStyle={styles.flatList}
         numColumns={2}
         keyExtractor={(item) => item.id} 
-        data={decks}
+        data={state.decks}
         renderItem={({ item }) => (
           <DeckView deck={item}/>
         )}

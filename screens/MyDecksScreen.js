@@ -9,9 +9,9 @@ export default function MyDecksScreen(props) {
   
   const state = useContext(AppContext)
   
-  const handlePress = (event) => {
-    props.navigation.navigate("Home")
-  }
+  // const handlePress = (event) => {
+  //   props.navigation.navigate("Home")
+  // }
 
   return (
     <View style={styles.container}>

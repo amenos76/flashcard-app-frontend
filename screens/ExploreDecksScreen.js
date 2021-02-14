@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import DeckList from '../components/DeckList'
-
+import FormFilter from '../components/SearchForm'
+import { AppContext } from '../provider/AppProvider'
 
 
 
@@ -10,16 +11,9 @@ export default function ExploreDecksScreen(props) {
 
   const state = useContext(AppContext)
   
-  const handlePress = (event) => {
-    alert('Button clicked!')
-  }
-
-
   return (
     <View style={styles.container}>
-      <Text>Explore Decks Screen</Text>
-      {/* <DeckList /> */}
-      <Button title="Click here" onPress={handlePress} ></Button>
+      <FormFilter></FormFilter>
     </View>
   )
 }

@@ -10,8 +10,6 @@ import MainTabScreen from './screens/MainTabScreen';
 import DrawerContent from './screens/DrawerContent';
 import SettingsScreen from './screens/SettingsScreen';
 
-import { DataLayerProvider } from './context/DataLayerContext'
-
 import { AppProvider } from './provider/AppProvider'
 
 
