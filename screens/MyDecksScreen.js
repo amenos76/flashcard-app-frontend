@@ -1,17 +1,17 @@
 import React, { useContext } from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
+import { AppContext } from '../provider/AppProvider'
+
 import DeckList from '../components/DeckList'
 
-import { DataLayerContext } from '../context/DataLayerContext'
-
-
-const handlePress = (event) => {
-  props.navigation.navigate("Home")
-}
 
 export default function MyDecksScreen(props) {
-
-  const { state } = useContext(DataLayerContext)
+  
+  const state = useContext(AppContext)
+  
+  const handlePress = (event) => {
+    props.navigation.navigate("Home")
+  }
 
   return (
     <View style={styles.container}>

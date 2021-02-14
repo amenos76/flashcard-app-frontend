@@ -1,29 +1,67 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
+
+import { decodeHTMLEntities } from '../utilities/decodeHTML'
+import { getData } from '../utilities/api'
+
+const SAMPLE_DECKS = getData()
+const baseUrl = 'https://opentdb.com/api.php?amount=10'
 
 const AppContext = React.createContext();
 
-export default class AppProvider extends Component {
 
-  state = {
-    user: "AUGIE"
+const AppProvider = (props) => {
+
+  const [user, setUser] = useState("AUGIE")
+  const [loading, setLoading] = useState(false)
+  const [exploreDecks, setExploreDecks] = useState([])
+  const [userDecks, setUserDecks] = useState(SAMPLE_DECKS)
+
+  
+  
+  
+  useEffect(() => {
+    fetch(baseUrl)
+    .then(response => response.json())
+    .then(data => console.log(data.results))
+    .catch(error => {
+      console.log("Error:", error)
+    })
+  }, [])
+  
+  const handleFetch = (questionArray) => {
+    questionArray.forEach(formatData)
+    console.log(newArray)
+    setExploreDecks(newArray)
   }
 
-  setUser = (user) => {
-    this.setState({user})
+  let newArray = [];
+
+  const formatData = (questionItem, index) => {
+      let newCardObject = {
+        id: `${index}-${Date.now()}`,
+        question: decodeHTMLEntities(questionItem.question),
+        answer: decodeHTMLEntities(questionItem.correct_answer),
+      }
+      newArray.push(newCardObject)
   }
 
-  render() {
     return (
       <AppContext.Provider
         value={{
-          user: this.state.user,
-          setUser: this.setUser
+          user,
+          loading,
+          exploreDecks,
+          userDecks,
+          setUser,
+          setLoading,
+          setExploreDecks,
+          setUserDecks,
         }}
       >
-        {this.props.children}
+        {props.children}
       </AppContext.Provider>
     )
-  }
+  
 }
 
 export { AppProvider, AppContext };
