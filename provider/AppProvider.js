@@ -16,6 +16,13 @@ const AppProvider = (props) => {
   const [exploreDecks, setExploreDecks] = useState([])
   const [userDecks, setUserDecks] = useState(SAMPLE_DECKS)
   const [categories, setCategories] = useState([])
+  const [searchCategory, setSearchCategory] = useState('')
+  const [searchAmount, setSearchAmount] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [searchSubmitted, setSearchSubmitted] = useState(false)
+  
+
+
 
   
   
@@ -31,7 +38,7 @@ const AppProvider = (props) => {
   
   const handleFetch = (questionArray) => {
     questionArray.forEach(formatData)
-    console.log(newArray)
+    // console.log(newArray)
     setExploreDecks(newArray)
   }
 
@@ -55,11 +62,19 @@ const AppProvider = (props) => {
           exploreDecks,
           userDecks,
           categories,
+          searchAmount,
+          searchCategory,
+          searchResults,
+          searchSubmitted,
           setUser,
           setLoading,
           setExploreDecks,
           setUserDecks,
-          setCategories
+          setCategories,
+          setSearchAmount,
+          setSearchCategory,
+          setSearchResults,
+          setSearchSubmitted,
         }}
       >
         {props.children}

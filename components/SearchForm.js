@@ -3,12 +3,14 @@ import { View, Button, StyleSheet, TextInput, Text, SafeAreaView, } from 'react-
 import { ListPicker } from 'react-native-ultimate-modal-picker';
 
 import { AppContext } from '../provider/AppProvider'
+import FlashCardContainer from './FlashCardContainer';
 
 const baseUrl = 'https://opentdb.com/api.php?amount=10'
 
 export default function FormFilter() {
 
   const state = useContext(AppContext)
+
 
   useEffect(() => {
     fetch("https://opentdb.com/api_category.php")
@@ -74,8 +76,32 @@ export default function FormFilter() {
     { label: '40', value: '40' },
   ];
 
-  const handleChange = (category) => {
-    console.log(category)
+  const handleSubmit = () => {
+    fetch(`https://opentdb.com/api.php?amount=${state.searchAmount}&category=${state.searchCategory}`)
+      .then(response => response.json())
+      .then(data => handleSearchFetch(data.results))
+      .catch(error => {
+        console.log("Error:", error)
+      })
+  }
+
+  const handleSearchFetch = (resultsArray) => {
+    state.setSearchResults(resultsArray)
+    state.setSearchSubmitted(true)
+    // console.log(newArray)
+    
+  }
+
+  let newArray = [];
+
+  const formatSearchData = (questionItem, index) => {
+      let newCardObject = {
+        id: `${index}-${Date.now()}`,
+        category: questionItem.category,
+        question: decodeHTMLEntities(questionItem.question),
+        answer: decodeHTMLEntities(questionItem.correct_answer),
+      }
+      newArray.push(newCardObject)
   }
 
 
@@ -84,22 +110,20 @@ export default function FormFilter() {
       <ListPicker
         title="Category"
         items={state.categories}
-        onChange={(item) => handleChange(item)}
+        onChange={(item) => state.setSearchCategory(item)}
       />
       <ListPicker
         title="Number of Cards"
         items={items}
-        onChange={(item) => handleChange(item)}
+        onChange={(item) => state.setSearchAmount(item)}
       />
       <View style={styles.button}>
         <Button
-          titleStyle={{
-            fontSize: 20
-          }}
           title="Generate" 
-          onPress={''}>
-        </Button>
+          onPress={handleSubmit}
+        />
       </View>
+      <FlashCardContainer></FlashCardContainer>
     </SafeAreaView>
   )
 }
@@ -112,7 +136,6 @@ const styles = StyleSheet.create({
     top: 0
   },
   button: {
-    
     alignItems: 'center'
   }
 });
