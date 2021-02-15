@@ -13,7 +13,14 @@ const AppContext = React.createContext();
 const AppProvider = (props) => {
 
   const [user, setUser] = useState("AUGIE");
-  const [userData, setUserData] = useState({email: '', password: '', check_textInputChange: false, secureTextEntry: true});
+  const [userData, setUserData] = useState({
+    email: '', 
+    password: '', 
+    confirm_password: '',
+    check_textInputChange: false, 
+    secureTextEntry: true,
+    confirm_secureTextEntry: true
+  });
   const [loading, setLoading] = useState(false);
   const [exploreDecks, setExploreDecks] = useState([]);
   const [userDecks, setUserDecks] = useState([]);
