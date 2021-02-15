@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 
 import { decodeHTMLEntities } from '../utilities/decodeHTML'
-import { getData } from '../utilities/api'
-
 import { HOST_WITH_PORT } from '../environment';
+// import { getData } from '../utilities/api'
 
-const SAMPLE_DECKS = getData()
+
+// const SAMPLE_DECKS = getData()
 const baseUrl = 'https://opentdb.com/api.php?amount=10'
 
 const AppContext = React.createContext();
