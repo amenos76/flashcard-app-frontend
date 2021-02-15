@@ -9,6 +9,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import MainTabScreen from './screens/MainTabScreen';
 import DrawerContent from './screens/DrawerContent';
 import SettingsScreen from './screens/SettingsScreen';
+import RootStackScreen from './screens/RootStackScreen'
 
 import { AppProvider } from './provider/AppProvider'
 
@@ -20,10 +21,12 @@ export default function App() {
   return (
     <AppProvider>
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />} >
-          <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
-          <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
-        </Drawer.Navigator>
+        <RootStackScreen>
+          {/* <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />} >
+            <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
+            <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
+          </Drawer.Navigator> */}
+        </RootStackScreen>
       </NavigationContainer>
     </AppProvider>
   );
