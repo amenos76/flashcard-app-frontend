@@ -18,7 +18,7 @@ export default function DeckView( {deck} ) {
   return (
     // <TouchableOpacity onPress={() => showDeck(deck)}>
       <View style={styles.cardContainer}>
-        <Text style={styles.titleText}>{deck.name}</Text>
+        <Text style={styles.titleText}>{deck.deck_name}</Text>
         <Text style={styles.text}>{deck.cards.length} cards</Text>
         <View style={styles.buttonContainer}>
           {/* <Button title="view deck" color='#84A7DF'></Button> */}

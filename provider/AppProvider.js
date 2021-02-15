@@ -15,7 +15,7 @@ const AppProvider = (props) => {
   const [user, setUser] = useState("AUGIE")
   const [loading, setLoading] = useState(false)
   const [exploreDecks, setExploreDecks] = useState([])
-  const [userDecks, setUserDecks] = useState(SAMPLE_DECKS)
+  const [userDecks, setUserDecks] = useState([])
   const [categories, setCategories] = useState([])
   const [searchCategory, setSearchCategory] = useState('')
   const [searchAmount, setSearchAmount] = useState('')
@@ -32,7 +32,7 @@ const AppProvider = (props) => {
     })
     fetch(`${HOST_WITH_PORT}/decks`)
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(userDecks => setUserDecks(userDecks))
   }, [])
   
   const handleFetch = (questionArray) => {
