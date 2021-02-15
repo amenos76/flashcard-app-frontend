@@ -12,15 +12,16 @@ const AppContext = React.createContext();
 
 const AppProvider = (props) => {
 
-  const [user, setUser] = useState("AUGIE")
-  const [loading, setLoading] = useState(false)
-  const [exploreDecks, setExploreDecks] = useState([])
-  const [userDecks, setUserDecks] = useState([])
-  const [categories, setCategories] = useState([])
-  const [searchCategory, setSearchCategory] = useState('')
-  const [searchAmount, setSearchAmount] = useState('')
-  const [searchResults, setSearchResults] = useState([])
-  const [searchSubmitted, setSearchSubmitted] = useState(false)
+  const [user, setUser] = useState("AUGIE");
+  const [userData, setUserData] = useState({email: '', password: '', check_textInputChange: false, secureTextEntry: true});
+  const [loading, setLoading] = useState(false);
+  const [exploreDecks, setExploreDecks] = useState([]);
+  const [userDecks, setUserDecks] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [searchCategory, setSearchCategory] = useState('');
+  const [searchAmount, setSearchAmount] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchSubmitted, setSearchSubmitted] = useState(false);
   
   
   useEffect(() => {
@@ -57,6 +58,7 @@ const AppProvider = (props) => {
       <AppContext.Provider
         value={{
           user,
+          userData,
           loading,
           exploreDecks,
           userDecks,
@@ -66,6 +68,7 @@ const AppProvider = (props) => {
           searchResults,
           searchSubmitted,
           setUser,
+          setUserData,
           setLoading,
           setExploreDecks,
           setUserDecks,
