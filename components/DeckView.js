@@ -16,7 +16,7 @@ export default function DeckView( {deck} ) {
   }
 
   return (
-    <TouchableOpacity onPress={() => showDeck(deck)}>
+    // <TouchableOpacity onPress={() => showDeck(deck)}>
       <View style={styles.cardContainer}>
         <Text style={styles.titleText}>{deck.name}</Text>
         <Text style={styles.text}>{deck.cards.length} cards</Text>
@@ -25,7 +25,7 @@ export default function DeckView( {deck} ) {
           <Button title="remove from my decks" onPress={handlePress} color='#4E73A8'></Button>
         </View>
       </View>
-    </TouchableOpacity>
+    // </TouchableOpacity>
   )
 }
 

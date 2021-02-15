@@ -20,26 +20,23 @@ export default function FlashCardContainer() {
         )}
       />
     ) : (
-      <Text>Search was not submitted</Text>
+      <Text>Search has not been submitted yet</Text>
     )}
-      {/* {state.searchResults.map(card => {
-        return <FlashCard card={card} key={card.id} />
-      })} */}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     // backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
   },
   flatList: {
     flexGrow: 1, 
-    justifyContent: 'flex-start', 
-    alignItems: 'center',
-    paddingTop: 10
+    // justifyContent: 'flex-start', 
+    // alignItems: 'center',
+    // paddingTop: 10
   }
 });
