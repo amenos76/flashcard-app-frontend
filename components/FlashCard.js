@@ -14,8 +14,8 @@ export default function FlashCard( { flashcard } ) {
   return (
     // <TouchableOpacity onPress={() => showFlashcard(flashcard)}>
       <View style={styles.cardContainer}>
-        <Text style={styles.titleText}>{flashcard.question}</Text>
-        <Text style={styles.text}>{flashcard.correct_answer}</Text>
+        <Text style={styles.questionText}>{flashcard.question}</Text>
+        <Text style={styles.answerText}>{flashcard.correct_answer}</Text>
         <View style={styles.buttonContainer}>
           {/* <Button title="view deck" color='#84A7DF'></Button> */}
           <Button title="add to deck" onPress={handlePress} color='#4E73A8'></Button>
@@ -49,11 +49,12 @@ const styles = StyleSheet.create({
   card: {
     padding: 10,
   },
-  titleText: {
+  questionText: {
     color: 'white',
-    fontSize: 28
+    fontSize: 22,
+    padding: 5
   },
-  text: {
+  answerText: {
     color: 'white',
     fontSize: 22
   },

@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react'
 import { decodeHTMLEntities } from '../utilities/decodeHTML'
 import { getData } from '../utilities/api'
 
+import { HOST_WITH_PORT } from '../environment';
+
 const SAMPLE_DECKS = getData()
 const baseUrl = 'https://opentdb.com/api.php?amount=10'
 
 const AppContext = React.createContext();
-
 
 const AppProvider = (props) => {
 
@@ -21,11 +22,6 @@ const AppProvider = (props) => {
   const [searchResults, setSearchResults] = useState([])
   const [searchSubmitted, setSearchSubmitted] = useState(false)
   
-
-
-
-  
-  
   
   useEffect(() => {
     fetch(baseUrl)
@@ -34,6 +30,9 @@ const AppProvider = (props) => {
     .catch(error => {
       console.log("Error:", error)
     })
+    fetch(`${HOST_WITH_PORT}/decks`)
+      .then(response => response.json())
+      .then(data => console.log(data))
   }, [])
   
   const handleFetch = (questionArray) => {

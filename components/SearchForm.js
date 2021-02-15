@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import { View, Button, StyleSheet, TextInput, Text, SafeAreaView, } from 'react-native'
 import { ListPicker } from 'react-native-ultimate-modal-picker';
+import { decodeHTMLEntities } from '../utilities/decodeHTML';
 
 import { AppContext } from '../provider/AppProvider'
 import FlashCardContainer from './FlashCardContainer';
@@ -86,20 +87,21 @@ export default function FormFilter() {
   }
 
   const handleSearchFetch = (resultsArray) => {
-    state.setSearchResults(resultsArray)
+    resultsArray.forEach(formatSearchData)
+    state.setSearchResults(newArray)
     state.setSearchSubmitted(true)
-    // console.log(newArray)
+    console.log(newArray)
     
   }
 
   let newArray = [];
 
-  const formatSearchData = (questionItem, index) => {
+  const formatSearchData = (result, index) => {
       let newCardObject = {
         id: `${index}-${Date.now()}`,
-        category: questionItem.category,
-        question: decodeHTMLEntities(questionItem.question),
-        answer: decodeHTMLEntities(questionItem.correct_answer),
+        category: result.category,
+        question: decodeHTMLEntities(result.question),
+        answer: decodeHTMLEntities(result.correct_answer),
       }
       newArray.push(newCardObject)
   }
