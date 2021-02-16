@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { View, Text, Button, StyleSheet } from 'react-native'
+import { View, Text, Button, StyleSheet, Alert } from 'react-native'
 
 import { AppContext } from '../provider/AppProvider'
 
@@ -8,13 +8,14 @@ export default function HomeScreen(props) {
   
   const handlePress = () => {
     // props.navigation.navigate("My Decks")
-    state.setUser("Yall")
+    // state.setUser("Yall")
+    Alert("clicked!")
   }
 
 
   return (
     <View style={styles.container}>
-      <Text>{state.user}</Text>
+      <Text>Hullo</Text>
       <Button 
       onPress={handlePress} 
       title="Go to Decks">
