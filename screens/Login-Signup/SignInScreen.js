@@ -122,6 +122,7 @@ export default function SignInScreen( {navigation} ) {
             placeholder="Your Email"
             value={state.userData.email}
             autoCapitalize="none"
+            autoCorrect={false}
             onChangeText={(value) => textInputChange(value)}
           />
           {state.userData.check_textInputChange ? 
