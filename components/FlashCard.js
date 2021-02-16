@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native'
 
+import { LinearGradient } from 'expo-linear-gradient';
+
 export default function FlashCard( { flashcard } ) {
 
   const handlePress = (event) => {
@@ -15,10 +17,17 @@ export default function FlashCard( { flashcard } ) {
     // <TouchableOpacity onPress={() => showFlashcard(flashcard)}>
       <View style={styles.cardContainer}>
         <Text style={styles.questionText}>{flashcard.question}</Text>
-        <Text style={styles.answerText}>{flashcard.correct_answer}</Text>
+        <Text style={styles.answerText}>{flashcard.answer}</Text>
+        {/* <Text style={styles.answerText}>{flashcard.correct_answer}</Text> */}
         <View style={styles.buttonContainer}>
-          {/* <Button title="view deck" color='#84A7DF'></Button> */}
-          <Button title="add to deck" onPress={handlePress} color='#4E73A8'></Button>
+          <TouchableOpacity onPress={handlePress}>
+          <LinearGradient
+            colors={['#505050', '#383838']}
+            style={styles.addButton}
+          >
+            <Text style={styles.textAdd}>Add To Deck</Text>
+          </LinearGradient>
+        </TouchableOpacity>
         </View>
       </View>
     // </TouchableOpacity>
@@ -28,7 +37,8 @@ export default function FlashCard( { flashcard } ) {
 const styles = StyleSheet.create({
   cardContainer: {
     // flex: .2,
-    backgroundColor: '#344B48',
+    display: 'flex',
+    backgroundColor: '#fff',
     width: 400,
     height: 215,
     alignItems: 'center',
@@ -44,24 +54,41 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
-  },
-  card: {
-    padding: 10,
+    elevation: 10,
   },
   questionText: {
-    color: 'white',
-    fontSize: 22,
-    padding: 5
+    color: 'black',
+    fontSize: 18,
+    paddingLeft: 5,
+    textAlign: 'center',
   },
   answerText: {
-    color: 'white',
-    fontSize: 22
+    color: 'black',
+    fontSize: 22,
+    marginTop: 15,
+    fontWeight: "bold",
   },
   buttonContainer: {
-    paddingTop: 40,
+    paddingTop: 15,
     // flexDirection: 'row',
     // justifyContent: 'space-between',
+  },
+  addButton: {
+    width: 150,
+    height: 40,
+    // paddingTop: 14,
+    // paddingBottom: 14,
+    // alignItems: 'center',
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    flexDirection: 'row'
+  },
+  textAdd: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold'
   }
 
 });

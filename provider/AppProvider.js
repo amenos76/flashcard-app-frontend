@@ -32,7 +32,7 @@ const AppProvider = (props) => {
   const [categories, setCategories] = useState([]);
   const [searchCategory, setSearchCategory] = useState('');
   const [searchAmount, setSearchAmount] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState(null);
   const [searchSubmitted, setSearchSubmitted] = useState(false);
   // const [deckCreatedSuccesfully, setDeckCreatedSuccessfully] = useState(false);
   

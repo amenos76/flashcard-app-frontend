@@ -1,12 +1,15 @@
 import React, { useEffect, useContext } from 'react'
-import { View, Button, StyleSheet, TextInput, Text, SafeAreaView, } from 'react-native'
+import { View, Button, StyleSheet, TextInput, Text, SafeAreaView, TouchableOpacity } from 'react-native'
 import { ListPicker } from 'react-native-ultimate-modal-picker';
 import { decodeHTMLEntities } from '../utilities/decodeHTML';
 
 import { AppContext } from '../provider/AppProvider'
 import FlashCardContainer from './FlashCardContainer';
 
-const baseUrl = 'https://opentdb.com/api.php?amount=10'
+import * as Animateable from 'react-native-animatable'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 export default function FormFilter() {
 
@@ -108,36 +111,97 @@ export default function FormFilter() {
 
 
   return (
-    <SafeAreaView style={styles.listContainer}>
-      <ListPicker
-        title="Category"
-        items={state.categories}
-        onChange={(item) => state.setSearchCategory(item)}
-      />
-      <ListPicker
-        title="Number of Cards"
-        items={items}
-        onChange={(item) => state.setSearchAmount(item)}
-      />
-      <View style={styles.button}>
+    <View style={styles.container}>
+      <Animateable.View 
+        style={styles.header}
+        animation="fadeInDown"
+      >
+        <ListPicker
+          title="Category"
+          items={state.categories}
+          onChange={(item) => state.setSearchCategory(item)}
+        />
+        <ListPicker
+          title="Number of Cards"
+          items={items}
+          onChange={(item) => state.setSearchAmount(item)}
+        />
+      </Animateable.View>
+      {/* <View style={styles.button}>
         <Button
           title="Generate" 
           onPress={handleSubmit}
         />
-      </View>
-      <FlashCardContainer></FlashCardContainer>
-    </SafeAreaView>
+      </View> */}
+
+      <Animateable.View 
+          style={styles.button}
+          animation="fadeIn"
+        >
+        <TouchableOpacity onPress={() => handleSubmit()}>
+          <LinearGradient
+            colors={['#909090', '#D3D3D3']}
+            style={styles.searchButton}
+          >
+            <Text style={styles.textSearch}>Generate</Text>
+          </LinearGradient>
+        </TouchableOpacity>
+      </Animateable.View>
+
+      {state.searchResults ? 
+      <Animateable.View 
+        style={styles.footer}
+        animation="fadeInUpBig"
+      >
+        <FlashCardContainer></FlashCardContainer>
+      </Animateable.View>
+      : null }
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  listContainer: {
-    width: '100%',
-    paddingTop: 14,
-    position: 'absolute',
-    top: 0
-  },
+  // listContainer: {
+  //   width: '100%',
+  //   position: 'absolute',
+  //   top: 0
+  // },
   button: {
+    paddingTop: 14,
+    paddingBottom: 14,
     alignItems: 'center'
+  },
+  container: {
+    flex: 1, 
+    backgroundColor: '#004d46'
+  },
+  header: {
+      justifyContent: 'center',
+      alignItems: 'center'
+  },
+  footer: {
+      flex: 2,
+      backgroundColor: '#fff',
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 30,
+      paddingTop: 10,
+      paddingHorizontal: 10
+  },
+  searchButton: {
+    width: 150,
+    height: 40,
+    // paddingTop: 14,
+    // paddingBottom: 14,
+    // alignItems: 'center',
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    flexDirection: 'row'
+  },
+  textSearch: {
+    color: 'black',
+    fontSize: 20,
+    fontWeight: 'bold'
   }
 });
