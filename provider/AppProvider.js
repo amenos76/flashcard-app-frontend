@@ -2,17 +2,14 @@ import React, { useState, useEffect } from 'react'
 
 import { decodeHTMLEntities } from '../utilities/decodeHTML'
 import { HOST_WITH_PORT } from '../environment';
-// import { getData } from '../utilities/api'
 
-
-// const SAMPLE_DECKS = getData()
 const baseUrl = 'https://opentdb.com/api.php?amount=10'
 
 const AppContext = React.createContext();
 
 const AppProvider = (props) => {
 
-  const [user, setUser] = useState("AUGIE");
+  const [user, setUser] = useState({});
   const [userData, setUserData] = useState({
     email: '', 
     password: '', 
@@ -21,7 +18,8 @@ const AppProvider = (props) => {
     secureTextEntry: true,
     confirm_secureTextEntry: true
   });
-  const [loading, setLoading] = useState(false);
+  const [userToken, setUserToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [exploreDecks, setExploreDecks] = useState([]);
   const [userDecks, setUserDecks] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -66,7 +64,8 @@ const AppProvider = (props) => {
         value={{
           user,
           userData,
-          loading,
+          userToken,
+          isLoading,
           exploreDecks,
           userDecks,
           categories,
@@ -76,7 +75,8 @@ const AppProvider = (props) => {
           searchSubmitted,
           setUser,
           setUserData,
-          setLoading,
+          setUserToken,
+          setIsLoading,
           setExploreDecks,
           setUserDecks,
           setCategories,

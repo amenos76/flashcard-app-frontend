@@ -9,6 +9,7 @@ import {
   Button,
   StyleSheet,
   StatusBar,
+  Alert,
 } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -17,9 +18,11 @@ import Feather from 'react-native-vector-icons/Feather'
 import * as Animateable from 'react-native-animatable'
 
 import { AppContext } from '../../provider/AppProvider'
+import { AuthContext } from '../../context/AuthContext'
 
 export default function SignUpScreen( {navigation} ) {
-
+  
+  const { signUp } = useContext(AuthContext)
   const state = useContext(AppContext)
 
   const textInputChange = (value) => {
@@ -64,6 +67,10 @@ export default function SignUpScreen( {navigation} ) {
       ...state.userData,
       confirm_secureTextEntry: !state.userData.confirm_secureTextEntry
     });
+  }
+
+  const handleSubmit = () => {
+    signUp(state.userData.email, state.userData.password)
   }
 
   return (
@@ -169,12 +176,17 @@ export default function SignUpScreen( {navigation} ) {
           </View>
 
         <View style={styles.button}>
-            <LinearGradient
-              colors={['#08d4c4', '#01ab9d']}
-              style={styles.signIn}
+            <TouchableOpacity
+            style={styles.signIn}
+            onPress={() => handleSubmit()}
             >
-              <Text style={[styles.textSign, {color: '#fff'}]}>Sign Up</Text>
-            </LinearGradient>
+              <LinearGradient
+                colors={['#08d4c4', '#01ab9d']}
+                style={styles.signIn}
+              >
+                <Text style={[styles.textSign, {color: '#fff'}]}>Sign Up</Text>
+              </LinearGradient>
+            </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => navigation.goBack()}
