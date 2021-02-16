@@ -7,15 +7,15 @@ export default function HomeScreen(props) {
   const state = useContext(AppContext)
   
   const handlePress = () => {
-    // props.navigation.navigate("My Decks")
+    props.navigation.navigate("My Decks")
     // state.setUser("Yall")
-    Alert("clicked!")
+    // Alert("clicked!")
   }
 
 
   return (
     <View style={styles.container}>
-      <Text>Hullo</Text>
+      <Text style={styles.title}>Welcome!</Text>
       <Button 
       onPress={handlePress} 
       title="Go to Decks">
@@ -31,4 +31,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  title: {
+    color: '#05375a',
+    fontSize: 30,
+    fontWeight: 'bold'
+  }
 });

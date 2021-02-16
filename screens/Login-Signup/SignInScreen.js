@@ -9,6 +9,7 @@ import {
   Button,
   StyleSheet,
   StatusBar,
+  Alert,
 } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -16,15 +17,18 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Feather from 'react-native-vector-icons/Feather'
 import * as Animateable from 'react-native-animatable'
 
+
 import { AppContext } from '../../provider/AppProvider'
 import { AuthContext } from '../../context/AuthContext'
-import { DataTable } from 'react-native-paper';
+import { HOST_WITH_PORT } from '../../environment';
 
 export default function SignInScreen( {navigation} ) {
 
+  
+
   const state = useContext(AppContext)
   const { signIn } = useContext(AuthContext)
-  const newState = useContext(AuthContext)
+  const authState = useContext(AuthContext)
 
   const textInputChange = (value) => {
     if (value.length !== 0) {
@@ -46,10 +50,15 @@ export default function SignInScreen( {navigation} ) {
     if ( value.trim().length >= 4 ) {
       state.setUserData({
         ...state.userData,
-        password: value.replace(/\s/g, ''),
-      });
+        password: value,
+        isValidPassword: true
+      })
     } else {
-      
+      state.setUserData({
+        ...state.userData,
+        password: value,
+        isValidPassword: false
+      })
     }
   }
 
@@ -64,9 +73,31 @@ export default function SignInScreen( {navigation} ) {
     });
   }
 
-  const handleLogin = (username, password) => {
-    signIn(username, password)
-    // console.log(state.userData.email, state.userData.password)
+  const handleLogin = (email, password) => {
+    
+    fetch(`${HOST_WITH_PORT}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          email: email,
+          password: password,
+      })
+    }).then(response => {
+        if (!response.ok) {
+          return Alert.alert('Invalid User!', "username or password is incorrect.", [
+            {text: 'Okay'}
+          ])
+        }
+        return response.json()
+      }).then(response => {
+        signIn(email, response)
+      })
+      .catch(error => {
+        console.log("Error:", error)
+      })
+    
   }
 
   return (
@@ -105,7 +136,7 @@ export default function SignInScreen( {navigation} ) {
           </Animateable.View>
           : null}
         </View>
-        { newState.isValidEmail ? 
+        { authState.isValidEmail ? 
         <Animateable.View
         animation="fadeInLeft"
         duration={500}
@@ -150,14 +181,14 @@ export default function SignInScreen( {navigation} ) {
             }
           </TouchableOpacity>
         </View>
-        { newState.isValidPassword ?  
+        { state.userData.isValidPassword ? null :
         <Animateable.View
         animation="fadeInLeft"
         duration={500}
         >
           <Text style={styles.errorMsg}>Password must be at least 4 characters long.</Text>
         </Animateable.View>
-        : null
+        
         }
 
 

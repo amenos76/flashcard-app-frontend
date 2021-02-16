@@ -14,10 +14,8 @@ import RootStackScreen from './screens/RootStackScreen'
 import { AppProvider, AppContext } from './provider/AppProvider'
 import { AuthContext } from './context/AuthContext'
 import { ActivityIndicator } from 'react-native-paper';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HOST_WITH_PORT } from './environment';
-
 
 const Drawer = createDrawerNavigator();
 
@@ -32,6 +30,7 @@ export default function App() {
   const initialLoginState = {
     isLoading: false,
     email: null,
+    user: null,
     userToken: null,
     isValidEmail: true,
     isValidPassword: true,
@@ -72,33 +71,29 @@ export default function App() {
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
 
   const authContext = useMemo(() => ({
-    signIn: (email, password) => {
-      // setUserToken('dfakljfda')
-      // setIsLoading(false)
-      fetch(`${HOST_WITH_PORT}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password,
-        })
-      }).then(response => {
-          if (!response.ok) throw new Error("Email or password not found")
-          return response.json()
-        }).then(response => {
+    signIn: (email, response) => {
+      // fetch(`${HOST_WITH_PORT}/login`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //       email: email,
+      //       password: password,
+      //   })
+      // }).then(response => {
+      //     if (!response.ok) throw new Error("Email or password not found")
+      //     return response.json()
+      //   }).then(response => {
           dispatch({
             type: "LOGIN",
             id: email,
             token: response.token
           })
-          // setUserToken(response.token)
-          // setIsLoading(false)
-        })
-        .catch(error => {
-          console.log("Error:", error)
-        })
+        // })
+        // .catch(error => {
+        //   console.log("Error:", error)
+        // })
         
     },
     signOut: () => {
@@ -150,11 +145,10 @@ export default function App() {
             </Drawer.Navigator>
             )
           :
-          <RootStackScreen/>
+          <RootStackScreen dispatch={dispatch}/>
           }
         </NavigationContainer>
       </AppProvider>
     </AuthContext.Provider>
   );
 }
-

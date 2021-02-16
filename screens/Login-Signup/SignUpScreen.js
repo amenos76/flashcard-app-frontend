@@ -42,17 +42,43 @@ export default function SignUpScreen( {navigation} ) {
   }
 
   const handlePasswordChange = (value) => {
-    state.setUserData({
-      ...state.userData,
-      password: value,
-    });
+    // state.setUserData({
+    //   ...state.userData,
+    //   password: value,
+    // });
+    if ( value.trim().length >= 4 ) {
+      state.setUserData({
+        ...state.userData,
+        password: value,
+        isValidPassword: true
+      })
+    } else {
+      state.setUserData({
+        ...state.userData,
+        password: value,
+        isValidPassword: false
+      })
+    }
   }
 
   const handleConfirmPasswordChange = (value) => {
-    state.setUserData({
-      ...state.userData,
-      confirm_password: value,
-    });
+    // state.setUserData({
+    //   ...state.userData,
+    //   confirm_password: value,
+    // });
+    if ( value.trim().length >= 4 ) {
+      state.setUserData({
+        ...state.userData,
+        password: value,
+        isValidPassword: true
+      })
+    } else {
+      state.setUserData({
+        ...state.userData,
+        password: value,
+        isValidPassword: false
+      })
+    }
   }
 
   const updateSecureTextEntry = () => {
@@ -141,6 +167,15 @@ export default function SignUpScreen( {navigation} ) {
             }
           </TouchableOpacity>
         </View>
+        { state.userData.isValidPassword ? null :
+        <Animateable.View
+        animation="fadeInLeft"
+        duration={500}
+        >
+          <Text style={styles.errorMsg}>Password must be at least 4 characters long.</Text>
+        </Animateable.View>
+        
+        }
 
         <Text style={[styles.text_footer, {marginTop: 35}]}>Confirm Password</Text>
           <View style={styles.action}>
@@ -174,6 +209,15 @@ export default function SignUpScreen( {navigation} ) {
               }
             </TouchableOpacity>
           </View>
+          { state.userData.isValidPassword ? null :
+        <Animateable.View
+        animation="fadeInLeft"
+        duration={500}
+        >
+          <Text style={styles.errorMsg}>Password must be at least 4 characters long.</Text>
+        </Animateable.View>
+        
+        }
 
         <View style={styles.button}>
             <TouchableOpacity
