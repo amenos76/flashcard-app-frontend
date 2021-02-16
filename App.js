@@ -14,7 +14,7 @@ import RootStackScreen from './screens/RootStackScreen'
 import { AppProvider, AppContext } from './provider/AppProvider'
 import { AuthContext } from './context/AuthContext'
 import { ActivityIndicator } from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HOST_WITH_PORT } from './environment';
 
@@ -32,7 +32,9 @@ export default function App() {
   const initialLoginState = {
     isLoading: false,
     email: null,
-    userToken: null
+    userToken: null,
+    isValidEmail: true,
+    isValidPassword: true,
   };
 
   const loginReducer = (prevState, action) => {
@@ -120,7 +122,11 @@ export default function App() {
           }
         })
       }).then(response => response.json())
-      .then(user => setUser({ user }))
+      .then(response => dispatch({ 
+        type: "REGISTER",
+        id: email,
+        token: response.token 
+      }))
     },
   }), []);
 

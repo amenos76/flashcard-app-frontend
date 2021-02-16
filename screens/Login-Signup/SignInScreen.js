@@ -18,11 +18,13 @@ import * as Animateable from 'react-native-animatable'
 
 import { AppContext } from '../../provider/AppProvider'
 import { AuthContext } from '../../context/AuthContext'
+import { DataTable } from 'react-native-paper';
 
 export default function SignInScreen( {navigation} ) {
 
   const state = useContext(AppContext)
   const { signIn } = useContext(AuthContext)
+  const newState = useContext(AuthContext)
 
   const textInputChange = (value) => {
     if (value.length !== 0) {
@@ -41,10 +43,18 @@ export default function SignInScreen( {navigation} ) {
   }
 
   const handlePasswordChange = (value) => {
-    state.setUserData({
-      ...state.userData,
-      password: value,
-    });
+    if ( value.trim().length >= 4 ) {
+      state.setUserData({
+        ...state.userData,
+        password: value.replace(/\s/g, ''),
+      });
+    } else {
+      
+    }
+  }
+
+  const handleValidPassword = (value) => {
+
   }
 
   const updateSecureTextEntry = () => {
@@ -95,6 +105,16 @@ export default function SignInScreen( {navigation} ) {
           </Animateable.View>
           : null}
         </View>
+        { newState.isValidEmail ? 
+        <Animateable.View
+        animation="fadeInLeft"
+        duration={500}
+        >
+          <Text style={styles.errorMsg}>Email must be valid.</Text>
+        </Animateable.View>
+        : null
+        }
+
       <Text style={[styles.text_footer, {marginTop: 35}]}>Password</Text>
         <View style={styles.action}>
           <Feather
@@ -110,6 +130,7 @@ export default function SignInScreen( {navigation} ) {
             autoCapitalize="none"
             secureTextEntry={state.userData.secureTextEntry ? true : false}
             onChangeText={(value) => handlePasswordChange(value)}
+            // onEndEditing={(event) => handleValidPassword(event.nativeEvent.text)}
           />
           <TouchableOpacity
             onPress={updateSecureTextEntry}
@@ -129,6 +150,16 @@ export default function SignInScreen( {navigation} ) {
             }
           </TouchableOpacity>
         </View>
+        { newState.isValidPassword ?  
+        <Animateable.View
+        animation="fadeInLeft"
+        duration={500}
+        >
+          <Text style={styles.errorMsg}>Password must be at least 4 characters long.</Text>
+        </Animateable.View>
+        : null
+        }
+
 
         <View style={styles.button}>
             <TouchableOpacity
