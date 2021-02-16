@@ -11,12 +11,14 @@ const AppProvider = (props) => {
 
   const [user, setUser] = useState({});
   const [userData, setUserData] = useState({
-    email: '', 
-    password: '', 
-    confirm_password: '',
+    email: null,
+    password: null, 
+    confirm_password: null,
+    isValidPassword: true,
     check_textInputChange: false, 
     secureTextEntry: true,
-    confirm_secureTextEntry: true
+    confirm_secureTextEntry: true,
+    createDeckName: null,
   });
   const [userToken, setUserToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);

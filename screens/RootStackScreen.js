@@ -8,11 +8,11 @@ import SignUpScreen from './Login-Signup/SignUpScreen';
 
 const RootStack = createStackNavigator();
 
-export default function RootStackScreen( {navigation} ) {
+export default function RootStackScreen( {navigation, dispatch} ) {
   return (
     <RootStack.Navigator headerMode="none" >
       <RootStack.Screen name="SplashScreen" component={SplashScreen} />
-      <RootStack.Screen name="SignInScreen" component={SignInScreen} />
+      <RootStack.Screen name="SignInScreen" component={SignInScreen} dispatch={dispatch}/>
       <RootStack.Screen name="SignUpScreen" component={SignUpScreen} />
     </RootStack.Navigator>
   )
