@@ -19,6 +19,11 @@ const AppProvider = (props) => {
     secureTextEntry: true,
     confirm_secureTextEntry: true,
     createDeckName: null,
+    createDeckId: null,
+    deckCreatedSuccesfully: false,
+    createCardQuestion: null,
+    createCardAnswer: null,
+    cardCreatedSuccessfully: false,
   });
   const [userToken, setUserToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,6 +34,7 @@ const AppProvider = (props) => {
   const [searchAmount, setSearchAmount] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [searchSubmitted, setSearchSubmitted] = useState(false);
+  // const [deckCreatedSuccesfully, setDeckCreatedSuccessfully] = useState(false);
   
   
   useEffect(() => {

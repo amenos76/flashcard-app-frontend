@@ -120,6 +120,7 @@ export default function SignUpScreen( {navigation} ) {
             style={styles.textInput}
             placeholder="Your Email"
             autoCapitalize="none"
+            autoCorrect={none}
             onChangeText={(value) => textInputChange(value)}
           />
           {state.userData.check_textInputChange ? 
