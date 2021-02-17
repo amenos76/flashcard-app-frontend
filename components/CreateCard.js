@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import {
-  View,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -19,6 +18,8 @@ import { HOST_WITH_PORT } from '../environment';
 export default function CreateCard() {
 
   const state = useContext(AppContext)
+
+  // const textInput = React.useRef()
 
   const textQuestionInputChange = (value) => {
     state.setUserData({
@@ -56,11 +57,15 @@ export default function CreateCard() {
         }
         return response.json()
       })
-      .then(response => console.log(response))
+      // .then(response => console.log(response))
+      Alert.alert(`Card successfully added to ${state.userData.createDeckName} deck!`)
       state.setUserData({
         ...state.userData,
-        cardCreatedSuccessfully: true
-      })
+        createCardQuestion: '',
+        createCardAnswer: '',
+        cardCreatedSuccessfully: true,
+        createdCardsNumber: state.userData.createdCardsNumber + 1
+    })
     
   }
 
@@ -70,23 +75,20 @@ export default function CreateCard() {
         animation="fadeInUpBig"
         duration={500}
       >
+      { state.userData.cardCreatedSuccessfully ? (
+        <>
+        <Text style={styles.title}>Now add more cards!</Text>
+        <Text style={styles.text}>{state.userData.createdCardsNumber} card(s) in {state.userData.createDeckName}</Text>
+        </>
+      )
+      : 
         <Text style={styles.title}>Now create some cards!</Text>
-        {/* <Text style={styles.text}>Question and Answer</Text>
-        <Animateable.View
-          animation="pulse"
-        >
-          <FontAwesome
-              name="chevron-down"
-              color="#05275a"
-              size={20}
-            />
-        </Animateable.View> */}
-
+      }
         <TextInput
             style={styles.textInput}
             placeholder="Question"
             value={state.userData.newCardQuestion}
-            // autoCapitalize="none"
+            autoCorrect={false}
             onChangeText={(value) => textQuestionInputChange(value)}
           />
 
@@ -94,14 +96,14 @@ export default function CreateCard() {
             style={styles.textInput}
             placeholder="Answer"
             value={state.userData.newCardAnswer}
-            // autoCapitalize="none"
+            autoCorrect={false}
             onChangeText={(value) => textAnswerInputChange(value)}
           />
 
         { state.userData.createCardAnswer && state.userData.createCardQuestion !== null ? 
           <Animateable.View 
           style={styles.button}
-          animation="fadeInUpBig"
+          animation="fadeInUp"
         >
           <TouchableOpacity onPress={() => submitCard()}>
             <LinearGradient

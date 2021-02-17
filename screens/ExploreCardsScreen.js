@@ -7,7 +7,7 @@ import { AppContext } from '../provider/AppProvider'
 
 
 
-export default function ExploreDecksScreen(props) {
+export default function ExploreCardsScreen(props) {
 
   const state = useContext(AppContext)
   

@@ -1,20 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native'
-
 import { LinearGradient } from 'expo-linear-gradient';
+
+import { AppContext } from '../provider/AppProvider'
 
 export default function FlashCard( { flashcard } ) {
 
+  const state = useContext(AppContext)
+
   const handlePress = (event) => {
     event.stopPropagation()
-    alert("yoooooooo")
+    state.setShow(true)
+    // alert("yoooooooo")
   }
 
   const showFlashcard = (flashcard) => {
     alert(flashcard.category)
   }
   return (
-    // <TouchableOpacity onPress={() => showFlashcard(flashcard)}>
       <View style={styles.cardContainer}>
         <Text style={styles.questionText}>{flashcard.question}</Text>
         <Text style={styles.answerText}>{flashcard.answer}</Text>
@@ -27,10 +30,9 @@ export default function FlashCard( { flashcard } ) {
           >
             <Text style={styles.textAdd}>Add To Deck</Text>
           </LinearGradient>
-        </TouchableOpacity>
+          </TouchableOpacity>
         </View>
       </View>
-    // </TouchableOpacity>
   )
 }
 
@@ -52,9 +54,9 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 1,
     shadowRadius: 3.84,
-    elevation: 10,
+    elevation: 4,
   },
   questionText: {
     color: 'black',
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   answerText: {
-    color: 'black',
+    color: '#05375a',
     fontSize: 22,
     marginTop: 15,
     fontWeight: "bold",

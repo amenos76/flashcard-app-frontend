@@ -14,11 +14,13 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import * as Animateable from 'react-native-animatable'
 
 import { AppContext } from '../provider/AppProvider'
+import { AuthContext } from '../context/AuthContext'
 import { HOST_WITH_PORT } from '../environment';
 
 export default function CreateDeck() {
 
   const state = useContext(AppContext)
+  const authState = useContext(AuthContext)
 
   const textInputChange = (value) => {
     state.setUserData({
@@ -41,13 +43,24 @@ export default function CreateDeck() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          deck_name: state.userData.createDeckName
+          deck: {
+            deck_name: state.userData.createDeckName,
+            user_id: state.user.id
+          }
         })
       }).then(response => {
         if (!response.ok) {
-          return Alert.alert('Unable to create deck!', "Deck name may already exist.", [
-            {text: 'Okay'}
-          ])
+          // return Alert.alert('Unable to create deck!', "Deck name may already exist.", [
+          //   {text: 'Okay'}
+          // ])
+          let deckObj = {
+            deck: {
+              deck_name: state.userData.createDeckName,
+              user_id: authState.userId
+            }
+          }
+          console.log("deck object here", deckObj)
+          console.log("error", response)
         }
         return response.json()
       })

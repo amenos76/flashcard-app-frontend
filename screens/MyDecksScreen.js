@@ -11,10 +11,7 @@ export default function MyDecksScreen(props) {
   
   return (
     <View style={styles.container}>
-      {/* <Text>This is my Decks page.</Text> */}
-      
-      <DeckList decks={state.userDecks}/>
-      
+      <DeckList decks={state.user.decks}/>
     </View>
   )
 }

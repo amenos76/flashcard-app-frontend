@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, Button, TouchableOpacity, Modal } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../utilities/colors';
 
 export default function DeckView( {deck} ) {
 
   const handlePress = (event) => {
     event.stopPropagation()
-    alert("delete that deck")
+    alert("view that deck")
   }
 
   const showDeck = (deck) => {
@@ -16,30 +16,36 @@ export default function DeckView( {deck} ) {
   }
 
   return (
-    // <TouchableOpacity onPress={() => showDeck(deck)}>
-      <View style={styles.cardContainer}>
+      <LinearGradient 
+        style={styles.cardContainer}
+        colors={['#696969', '#383838']}
+      >
         <Text style={styles.titleText}>{deck.deck_name}</Text>
         <Text style={styles.text}>{deck.cards.length} cards</Text>
+        
         <View style={styles.buttonContainer}>
-          {/* <Button title="view deck" color='#84A7DF'></Button> */}
-          <Button title="remove from my decks" onPress={handlePress} color='#4E73A8'></Button>
+          <TouchableOpacity onPress={handlePress}>
+          <LinearGradient
+            colors={['#08d4c4', '#008075']}
+            style={styles.viewButton}
+          >
+            <Text style={styles.textView}>View Deck</Text>
+          </LinearGradient>
+        </TouchableOpacity>
         </View>
-      </View>
-    // </TouchableOpacity>
+
+      </LinearGradient>
   )
 }
 
 const styles = StyleSheet.create({
   cardContainer: {
-    // flex: .2,
-    backgroundColor: '#344B48',
     width: 200,
     height: 215,
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 5,
     marginHorizontal: 10,
-    padding: 5,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
@@ -48,7 +54,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+    elevation: 10,
   },
   card: {
     padding: 10,
@@ -62,9 +68,26 @@ const styles = StyleSheet.create({
     fontSize: 22
   },
   buttonContainer: {
-    paddingTop: 40,
+    paddingTop: 15,
     // flexDirection: 'row',
     // justifyContent: 'space-between',
+  },
+  viewButton: {
+    width: 150,
+    height: 40,
+    // paddingTop: 14,
+    // paddingBottom: 14,
+    // alignItems: 'center',
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    flexDirection: 'row'
+  },
+  textView: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold'
   }
 
 });

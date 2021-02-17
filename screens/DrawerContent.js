@@ -19,17 +19,37 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { AuthContext } from '../context/AuthContext';
-
+import { AppContext } from '../provider/AppProvider'
 
 
 
 export default function DrawerContent(props) {
 
+  const state = useContext(AppContext)
   const { signOut } = useContext(AuthContext)
-  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+  const [isStudyMode, setIsStudyMode] = React.useState(false);
 
-  const toggleTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
+  const toggleStudyMode = () => {
+    setIsStudyMode(!isStudyMode);
+  }
+
+  const handleSignOut = () => {
+    signOut()
+    state.setUserData({
+      ...state.userData,
+      userID: null,
+      email: null,
+      password: null,
+      createDeckName: null,
+      createDeckId: null,
+      deckCreatedSuccessfully: false,
+      createCardQuestion: null,
+      createCardAnswer: null,
+      cardCreatedSuccessfully: null,
+    })
+    state.setUser(null)
+    state.setUserDecks([])
+    state.setSearchResults([])
   }
 
   return (
@@ -45,8 +65,8 @@ export default function DrawerContent(props) {
               size={50}
               />
               <View style={{marginLeft: 15, flexDirection: 'column'}}>
-                <Title style={styles.title}>Augie Menos</Title>
-                <Caption style={StyleSheet.caption}>augie.menos@gmail.com</Caption>
+                <Title style={styles.title}>Augie</Title>
+                <Caption style={StyleSheet.caption}>{state.userData.email}</Caption>
               </View>
             </View>
           </View>
@@ -91,8 +111,8 @@ export default function DrawerContent(props) {
               icon={({color, size}) => (
                 <MaterialCommunityIcons name="card-search" color={color} size={size} />
               )} 
-              label="Explore Decks"
-              onPress={() => {props.navigation.navigate('Explore Decks')}}
+              label="Explore Cards"
+              onPress={() => {props.navigation.navigate('Explore Cards')}}
             />    
             <DrawerItem 
               icon={({color, size}) => (
@@ -103,11 +123,11 @@ export default function DrawerContent(props) {
             />    
           </Drawer.Section>
           <Drawer.Section title="Preferences">
-          <TouchableRipple onPress={() => {toggleTheme()}}>
+          <TouchableRipple onPress={() => {toggleStudyMode()}}>
             <View style={styles.preference}>
-              <Text>Dark Theme</Text>
+              <Text>Study Mode</Text>
               <View pointerEvents="none">
-                <Switch value={isDarkTheme}/>
+                <Switch value={isStudyMode}/>
               </View>
             </View>
           </TouchableRipple>
@@ -125,7 +145,7 @@ export default function DrawerContent(props) {
             />
           )}
           label="Sign Out"
-          onPress={() => {signOut()}}
+          onPress={handleSignOut}
         />
           
       </Drawer.Section>

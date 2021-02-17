@@ -93,10 +93,17 @@ export default function SignInScreen( {navigation} ) {
         return response.json()
       }).then(response => {
         signIn(email, response)
-      })
-      .catch(error => {
-        console.log("Error:", error)
-      })
+        state.setUserData({
+          ...state.userData,
+          userID: response.user.id
+        })
+      state.setUser(response.user)
+      // state.setUserDecks(response.user.decks)
+      // console.log(response)
+    })
+      // .catch(error => {
+      //   console.log("Error:", error)
+      // })
     
   }
 
