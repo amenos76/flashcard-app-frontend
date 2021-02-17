@@ -20,8 +20,8 @@ export default function FlashCard( { flashcard } ) {
 
   return (
       <View style={styles.cardContainer}>
-        <Text style={styles.questionText}>{flashcard.question}</Text>
-        <Text style={styles.answerText}>{flashcard.answer}</Text>
+        <Text style={styles.questionText}>Question</Text>
+        <Text style={styles.answerText}>Answer</Text>
         {/* <Text style={styles.answerText}>{flashcard.correct_answer}</Text> */}
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={handlePress}>
