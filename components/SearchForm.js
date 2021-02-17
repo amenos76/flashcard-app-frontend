@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react'
-import { View, Button, StyleSheet, TextInput, Text, Modal, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Text, Modal, TouchableOpacity, Alert } from 'react-native'
 import { ListPicker } from 'react-native-ultimate-modal-picker';
+import { Picker } from '@react-native-community/picker'
 import { decodeHTMLEntities } from '../utilities/decodeHTML';
 
 import { AppContext } from '../provider/AppProvider'
@@ -9,32 +10,54 @@ import FlashCardContainer from './FlashCardContainer';
 import * as Animateable from 'react-native-animatable'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { LinearGradient } from 'expo-linear-gradient';
-
+import { HOST_WITH_PORT } from '../environment';
 
 export default function FormFilter() {
 
   const state = useContext(AppContext)
+  // const [selectedCard, setSelectedCard] = useState(false);
+  
+  useEffect(() => {
+    handleUserDecks(state.user.decks)
+  }, [state.user.decks])
 
+  const handleUserDecks = (decks) => {
+    decks.forEach(formatDecks)
+    state.setUserDeckNames(formattedDeckNames)
+  }
+
+  let formattedDeckNames = []
+
+  const formatDecks = (deck) => {
+    let container = {
+      label: deck.deck_name,
+      value: deck.id
+    }
+    formattedDeckNames.push(container)
+  }
 
   useEffect(() => {
     fetch("https://opentdb.com/api_category.php")
       .then(response => response.json())
+      // .then(response => console.log(response))
       .then(data => handleFetch(data.trivia_categories))
   }, [])
 
   const handleFetch = (categoryArray) => {
+    // console.log(categoryArray)
     categoryArray.forEach(formatCategories)
-    state.setCategories(formatedCategories)
+    state.setCategories(formattedCategories)
   }
 
-  let formatedCategories = []
-
+  let formattedCategories = []
+  
   const formatCategories = (category) => {
     let container = {
       label: category.name,
       value: category.id
     }
-    formatedCategories.push(container)
+    // console.log(container)
+    formattedCategories.push(container)
   }
 
   const items = [
@@ -112,6 +135,27 @@ const closeModal = () => {
   state.setShow(false)
 }
 
+const addCard = () => {
+  fetch(`${HOST_WITH_PORT}/cards`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      question: state.selectedCard.question,
+      answer: state.selectedCard.answer,
+      deck_id: state.selectedDeck.id
+    })
+  })
+  Alert.alert(`Card added to ${state.selectedDeck.deck_name}.`)
+  state.setShow(false)
+}
+
+const pickerItems = state.userDeckNames.map((deck, i) => (
+  <Picker.Item key={i} value={deck.label} label={deck.label} id={deck.id} />
+  ))
+
   return (
     <View style={styles.container}>
       <Animateable.View 
@@ -158,13 +202,37 @@ const closeModal = () => {
         <FlashCardContainer></FlashCardContainer>
       </Animateable.View>
       : null }
+
       <Modal
         transparent={true}
         visible={state.show}
       >
         <View style={{backgroundColor: "#000000aa", flex: 1}}>
-          <View style={{backgroundColor: '#ffffff', margin: 50, padding: 40, borderRadius: 10, flex: 1}}>
-            <Text style={{fontSize: 50}}>Modal Text</Text>
+          <View style={styles.modal}>
+            <Text style={{fontSize: 35}}>Choose Deck</Text>
+
+            <View >
+              <Picker
+                style={{width: '100%'}}
+                selectedValue={state.selectedDeck.deck_name}
+                onValueChange={(itemValue, itemIndex) => {state.setSelectedDeck({deck_name: itemValue, id: (itemIndex + 1)})}}
+              >
+              {pickerItems}
+                
+              </Picker>
+            </View>
+
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={addCard}>
+              <LinearGradient
+                colors={['#505050', '#383838']}
+                style={styles.addButton}
+              >
+                <Text style={styles.textAdd}>Add Card</Text>
+              </LinearGradient>
+              </TouchableOpacity>
+            </View>
+
             <View style={styles.buttonContainer}>
               <TouchableOpacity onPress={closeModal}>
               <LinearGradient
@@ -174,10 +242,12 @@ const closeModal = () => {
                 <Text style={styles.textAdd}>Cancel</Text>
               </LinearGradient>
               </TouchableOpacity>
-          </View>
+            </View>
+
           </View>
         </View>
       </Modal>
+
     </View>
   )
 }
@@ -247,5 +317,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontWeight: 'bold'
-  }
+  },
+  modal: {
+    backgroundColor: '#ffffff', 
+    margin: 50, 
+    padding: 40, 
+    borderRadius: 10, 
+    flex: .3
+  },
 });

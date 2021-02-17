@@ -37,6 +37,15 @@ const AppProvider = (props) => {
   const [searchResults, setSearchResults] = useState(null);
   const [searchSubmitted, setSearchSubmitted] = useState(false);
   const [show, setShow] = useState(false);
+  const [selectedDeck, setSelectedDeck] = useState({
+    deck_name: 'select a deck',
+    id: null,
+  });
+  const [userDeckNames, setUserDeckNames] = useState([]);
+  const [selectedCard, setSelectedCard] = useState({
+    question: '',
+    answer: '',
+  })
   // const [deckCreatedSuccesfully, setDeckCreatedSuccessfully] = useState(false);
   
   
@@ -85,6 +94,9 @@ const AppProvider = (props) => {
           searchResults,
           searchSubmitted,
           show,
+          selectedDeck,
+          userDeckNames,
+          selectedCard,
           setUser,
           setUserData,
           setUserToken,
@@ -97,6 +109,9 @@ const AppProvider = (props) => {
           setSearchResults,
           setSearchSubmitted,
           setShow,
+          setSelectedDeck,
+          setUserDeckNames,
+          setSelectedCard,
         }}
       >
         {props.children}
