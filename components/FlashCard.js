@@ -11,7 +11,11 @@ export default function FlashCard( { flashcard } ) {
   const handlePress = (event) => {
     event.stopPropagation()
     state.setShow(true)
-    // alert("yoooooooo")
+    state.setSelectedCard({
+      ...state.selectedCard,
+      question: flashcard.question,
+      answer: flashcard.answer
+    })
   }
 
   const showFlashcard = (flashcard) => {

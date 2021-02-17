@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import { AppContext } from '../provider/AppProvider'
 
@@ -6,6 +6,10 @@ import DeckList from '../components/DeckList'
 
 
 export default function MyDecksScreen(props) {
+
+  useEffect(() => {
+    
+  }, [])
   
   const state = useContext(AppContext)
   
