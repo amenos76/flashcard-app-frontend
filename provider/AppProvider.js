@@ -46,7 +46,7 @@ const AppProvider = (props) => {
     question: '',
     answer: '',
   })
-  // const [deckCreatedSuccesfully, setDeckCreatedSuccessfully] = useState(false);
+  const [showDeck, setShowDeck] = useState(false);
   
   
   useEffect(() => {
@@ -97,6 +97,7 @@ const AppProvider = (props) => {
           selectedDeck,
           userDeckNames,
           selectedCard,
+          showDeck,
           setUser,
           setUserData,
           setUserToken,
@@ -112,6 +113,7 @@ const AppProvider = (props) => {
           setSelectedDeck,
           setUserDeckNames,
           setSelectedCard,
+          setShowDeck,
         }}
       >
         {props.children}

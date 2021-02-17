@@ -10,21 +10,28 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import * as Animateable from 'react-native-animatable'
+import * as Animatable from 'react-native-animatable'
 
 export default function SplashScreen( {navigation} ) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Animateable.Image
-            animation="bounceIn"
-            duration={1500}
-          source={require('../../assets/flashcard_logo.png')}
-          style={styles.logo}
-          resizeMode='stretch'
-        />
+        <View style={styles.logoContainer}>
+          <Animatable.Image
+              animation="pulse"
+              iterationCount='infinite'
+              direction="alternate"
+              easing="ease-in-out"
+              // duration={5000}
+              source={require('../../assets/flashcard_logo.png')}
+              style={styles.logo}
+              resizeMode='stretch'
+            />
+        </View>
+          <Text style={styles.appTitle}>SUBLIMINAL STUDY</Text>
       </View>
-      <Animateable.View 
+
+      <Animatable.View 
         style={styles.footer}
         animation="fadeInUpBig"
       >
@@ -45,7 +52,7 @@ export default function SplashScreen( {navigation} ) {
             </LinearGradient>
           </TouchableOpacity>
         </View>
-      </Animateable.View>
+      </Animatable.View>
     </View>
   )
 }
@@ -80,9 +87,15 @@ const styles = StyleSheet.create({
       fontSize: 30,
       fontWeight: 'bold'
   },
+  appTitle: {
+    color: '#fff',
+    fontSize: 40,
+    fontWeight: 'bold',
+    flex: 1,
+  },
   text: {
       color: 'grey',
-      marginTop:5
+      marginTop: 5
   },
   button: {
       alignItems: 'flex-end',
@@ -99,5 +112,10 @@ const styles = StyleSheet.create({
   textSign: {
       color: 'white',
       fontWeight: 'bold'
-  }
+  },
+  logoContainer: {
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center'
+},
 });

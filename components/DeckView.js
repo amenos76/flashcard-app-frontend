@@ -1,19 +1,17 @@
-import React from 'react'
+import React, {useContext} from 'react'
 
-import { View, Text, StyleSheet, Button, TouchableOpacity, Modal } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
-import { colors } from '../utilities/colors';
+import { AppContext } from '../provider/AppProvider'
 
 export default function DeckView( {deck} ) {
 
-  const handlePress = (event) => {
-    event.stopPropagation()
-    alert("view that deck")
+  const state = useContext(AppContext)
+
+  const viewDeck = () => {
+    state.setShowDeck(true)
   }
 
-  const showDeck = (deck) => {
-    alert(deck.name)
-  }
 
   return (
       <LinearGradient 
@@ -24,7 +22,7 @@ export default function DeckView( {deck} ) {
         <Text style={styles.text}>{deck.cards.length} cards</Text>
         
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={handlePress}>
+          <TouchableOpacity onPress={viewDeck}>
           <LinearGradient
             colors={['#08d4c4', '#008075']}
             style={styles.viewButton}
