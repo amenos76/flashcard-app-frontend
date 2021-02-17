@@ -21,9 +21,11 @@ const AppProvider = (props) => {
     createDeckName: null,
     createDeckId: null,
     deckCreatedSuccesfully: false,
+    createdCardsNumber: 0,
     createCardQuestion: null,
     createCardAnswer: null,
     cardCreatedSuccessfully: false,
+    userID: null,
   });
   const [userToken, setUserToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +36,7 @@ const AppProvider = (props) => {
   const [searchAmount, setSearchAmount] = useState('');
   const [searchResults, setSearchResults] = useState(null);
   const [searchSubmitted, setSearchSubmitted] = useState(false);
+  const [show, setShow] = useState(false);
   // const [deckCreatedSuccesfully, setDeckCreatedSuccessfully] = useState(false);
   
   
@@ -44,9 +47,9 @@ const AppProvider = (props) => {
     .catch(error => {
       console.log("Error:", error)
     })
-    fetch(`${HOST_WITH_PORT}/decks`)
-      .then(response => response.json())
-      .then(userDecks => setUserDecks(userDecks))
+    // fetch(`${HOST_WITH_PORT}/decks`)
+    //   .then(response => response.json())
+    //   .then(userDecks => setUserDecks(userDecks))
   }, [])
   
   const handleFetch = (questionArray) => {
@@ -81,6 +84,7 @@ const AppProvider = (props) => {
           searchCategory,
           searchResults,
           searchSubmitted,
+          show,
           setUser,
           setUserData,
           setUserToken,
@@ -92,6 +96,7 @@ const AppProvider = (props) => {
           setSearchCategory,
           setSearchResults,
           setSearchSubmitted,
+          setShow,
         }}
       >
         {props.children}

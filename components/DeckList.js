@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     flexDirection: 'row',
-    backgroundColor: colors.background,
+    backgroundColor: '#fff',
     alignItems: 'flex-start',
     justifyContent: 'center',
     // flexWrap: 'wrap',
-    // padding: 10
+    padding: 10
   },
   flatList: {
     flexGrow: 1, 

@@ -16,10 +16,10 @@ export default function HomeScreen(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome!</Text>
-      <Button 
+      {/* <Button 
       onPress={handlePress} 
       title="Go to Decks">
-      </Button>
+      </Button> */}
     </View>
   )
 }
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#05375a',
-    fontSize: 30,
+    fontSize: 60,
     fontWeight: 'bold'
   }
 });

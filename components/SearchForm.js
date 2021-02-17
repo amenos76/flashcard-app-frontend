@@ -1,5 +1,5 @@
-import React, { useEffect, useContext } from 'react'
-import { View, Button, StyleSheet, TextInput, Text, SafeAreaView, TouchableOpacity } from 'react-native'
+import React, { useEffect, useContext, useState } from 'react'
+import { View, Button, StyleSheet, TextInput, Text, Modal, TouchableOpacity } from 'react-native'
 import { ListPicker } from 'react-native-ultimate-modal-picker';
 import { decodeHTMLEntities } from '../utilities/decodeHTML';
 
@@ -93,8 +93,7 @@ export default function FormFilter() {
     resultsArray.forEach(formatSearchData)
     state.setSearchResults(newArray)
     state.setSearchSubmitted(true)
-    console.log(newArray)
-    
+    // console.log(newArray)
   }
 
   let newArray = [];
@@ -109,6 +108,9 @@ export default function FormFilter() {
       newArray.push(newCardObject)
   }
 
+const closeModal = () => {
+  state.setShow(false)
+}
 
   return (
     <View style={styles.container}>
@@ -140,7 +142,7 @@ export default function FormFilter() {
         >
         <TouchableOpacity onPress={() => handleSubmit()}>
           <LinearGradient
-            colors={['#909090', '#D3D3D3']}
+            colors={['#F8F8F8', '#D3D3D3']}
             style={styles.searchButton}
           >
             <Text style={styles.textSearch}>Generate</Text>
@@ -156,6 +158,26 @@ export default function FormFilter() {
         <FlashCardContainer></FlashCardContainer>
       </Animateable.View>
       : null }
+      <Modal
+        transparent={true}
+        visible={state.show}
+      >
+        <View style={{backgroundColor: "#000000aa", flex: 1}}>
+          <View style={{backgroundColor: '#ffffff', margin: 50, padding: 40, borderRadius: 10, flex: 1}}>
+            <Text style={{fontSize: 50}}>Modal Text</Text>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={closeModal}>
+              <LinearGradient
+                colors={['#505050', '#383838']}
+                style={styles.addButton}
+              >
+                <Text style={styles.textAdd}>Cancel</Text>
+              </LinearGradient>
+              </TouchableOpacity>
+          </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   )
 }
@@ -201,6 +223,28 @@ const styles = StyleSheet.create({
   },
   textSearch: {
     color: 'black',
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  buttonContainer: {
+    paddingTop: 15,
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+  },
+  addButton: {
+    width: 150,
+    height: 40,
+    // paddingTop: 14,
+    // paddingBottom: 14,
+    // alignItems: 'center',
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    flexDirection: 'row'
+  },
+  textAdd: {
+    color: 'white',
     fontSize: 20,
     fontWeight: 'bold'
   }

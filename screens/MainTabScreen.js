@@ -12,7 +12,7 @@ import { IconButton } from 'react-native-paper';
 import HomeScreen from './HomeScreen';
 import MyDecksScreen from './MyDecksScreen';
 import CreateDeckScreen from './CreateDeckScreen';
-import ExploreDecksScreen from './ExploreDecksScreen';
+import ExploreCardsScreen from './ExploreCardsScreen';
 
 
 const HomeStack = createStackNavigator();
@@ -60,10 +60,10 @@ export default function MainTabScreen() {
           }}
         />
         <Tab.Screen
-          name="Explore Decks"
+          name="Explore Cards"
           component={ExploreDecksStackScreen}
           options={{
-            tabBarLabel: 'Explore Decks',
+            tabBarLabel: 'Explore Cards',
             tabBarColor: '#004d46',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="card-search" color={color} size={26} />
@@ -163,7 +163,7 @@ const ExploreDecksStackScreen = ({navigation}) => {
         fontWeight: 'bold',
       },
     }}>
-      <DecksStack.Screen name="Explore Decks" component={ExploreDecksScreen} options={{
+      <DecksStack.Screen name="Explore Cards" component={ExploreCardsScreen} options={{
         headerTitleAlign: 'center',
         headerLeft: () => (
             <IconButton 

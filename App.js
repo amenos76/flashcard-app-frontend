@@ -31,6 +31,7 @@ export default function App() {
     isLoading: false,
     email: null,
     user: null,
+    userId: null,
     userToken: null,
     isValidEmail: true,
     isValidPassword: true,
@@ -49,14 +50,16 @@ export default function App() {
           ...prevState,
           email: action.id,
           userToken: action.token,
-          isLoading: false
+          isLoading: false,
+          userId: action.userId
         };
       case 'LOGOUT':
         return {
           ...prevState,
           email: null,
           userToken: null,
-          isLoading: false
+          isLoading: false,
+          userId: null,
         };
       case 'REGISTER':
         return {
@@ -72,6 +75,7 @@ export default function App() {
 
   const authContext = useMemo(() => ({
     signIn: (email, response) => {
+      // console.log(response)
       // fetch(`${HOST_WITH_PORT}/login`, {
       //   method: "POST",
       //   headers: {
@@ -88,7 +92,8 @@ export default function App() {
           dispatch({
             type: "LOGIN",
             id: email,
-            token: response.token
+            token: response.token,
+            userId: response.user.id
           })
         // })
         // .catch(error => {
@@ -145,7 +150,7 @@ export default function App() {
             </Drawer.Navigator>
             )
           :
-          <RootStackScreen dispatch={dispatch}/>
+          <RootStackScreen />
           }
         </NavigationContainer>
       </AppProvider>
