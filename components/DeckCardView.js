@@ -8,34 +8,99 @@ export default function DeckCardView ( { card } ) {
 
   const state = useContext(AppContext)
 
-  const handlePress = (event) => {
+  const showAnswer = (event) => {
     event.stopPropagation()
     console.log( card )
+    state.setShowAnswer(true)
+  }
+
+  const hideAnswer = (event) => {
+    event.stopPropagation()
+    // console.log( card )
+    state.setShowAnswer(false)
+  }
+
+  const editCard = (event) => {
+    event.stopPropagation()
+    // console.log( card )
+    state.setShowAnswer(false)
+  }
+
+  const deleteCard = (event) => {
+    event.stopPropagation()
+    // console.log( card )
+    state.setShowAnswer(false)
   }
 
   return (
       <View style={styles.cardContainer}>
-        <Text style={styles.questionText}>{card.question}</Text>
-        <Text style={styles.answerText}>{card.answer}</Text>
-        {/* <Text style={styles.answerText}>{flashcard.correct_answer}</Text> */}
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={handlePress}>
-          <LinearGradient
-            colors={['#505050', '#383838']}
-            style={styles.addButton}
-          >
-            <Text style={styles.textAdd}>Placeholder</Text>
-          </LinearGradient>
-          </TouchableOpacity>
+
+        <View style={{width: '100%', height: '100%', alignItems: 'center', paddingTop: 30}}>
+        {/* <View style={{justifyContent: 'center', height: '100%'}}> */}
+
+          <Text style={styles.questionText}>{card.question}</Text>
+          {state.showAnswer ? 
+          <Text style={styles.answerText}>{card.answer}</Text>
+          : null}
+        {/* </View> */}
         </View>
+        
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#fff', width: '100%', position: 'absolute', bottom: 5}}>
+          <View style={{flexDirection: 'column'}}>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={showAnswer}>
+              <LinearGradient
+                colors={['#505050', '#383838']}
+                style={styles.buttonGradient}
+              >
+                <Text style={styles.textButton}>Show Answers</Text>
+              </LinearGradient>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={hideAnswer}>
+              <LinearGradient
+                colors={['#505050', '#383838']}
+                style={styles.buttonGradient}
+              >
+                <Text style={styles.textButton}>Hide Answers</Text>
+              </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'column'}}>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={editCard}>
+              <LinearGradient
+                colors={['#505050', '#383838']}
+                style={styles.buttonGradient}
+              >
+                <Text style={styles.textButton}>Edit Card</Text>
+              </LinearGradient>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={deleteCard}>
+              <LinearGradient
+                colors={['#b30000', '#383838']}
+                style={styles.buttonGradient}
+              >
+                <Text style={styles.textButton}>Delete Card</Text>
+              </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+
       </View>
   )
 }
 
 const styles = StyleSheet.create({
   cardContainer: {
-    // flex: .2,
-    display: 'flex',
     backgroundColor: '#fff',
     width: 400,
     height: 215,
@@ -68,13 +133,13 @@ const styles = StyleSheet.create({
     // display: 'none'
   },
   buttonContainer: {
-    paddingTop: 15,
+    paddingTop: 5,
     // flexDirection: 'row',
     // justifyContent: 'space-between',
   },
-  addButton: {
-    width: 150,
-    height: 40,
+  buttonGradient: {
+    width: 100,
+    height: 30,
     // paddingTop: 14,
     // paddingBottom: 14,
     // alignItems: 'center',
@@ -84,9 +149,9 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     flexDirection: 'row'
   },
-  textAdd: {
+  textButton: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 14,
     fontWeight: 'bold'
   }
 

@@ -20,7 +20,7 @@ export default function DeckCardViewContainer() {
       <FlatList
         contentContainerStyle={styles.flatList}
         numColumns={1}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         // gotta change below to deck data, store in state in another place than just user?
         data={state.viewSelectedDeck.cards}
         renderItem={({ item }) => (
