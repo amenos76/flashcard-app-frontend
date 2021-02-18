@@ -4,24 +4,19 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { AppContext } from '../provider/AppProvider'
 
-export default function FlashCard( { flashcard } ) {
+export default function DeckCardView ( { card } ) {
 
   const state = useContext(AppContext)
 
   const handlePress = (event) => {
     event.stopPropagation()
-    state.setShow(true)
-    state.setSelectedCard({
-      ...state.selectedCard,
-      question: flashcard.question,
-      answer: flashcard.answer
-    })
+    console.log( card )
   }
 
   return (
       <View style={styles.cardContainer}>
-        <Text style={styles.questionText}>Question</Text>
-        <Text style={styles.answerText}>Answer</Text>
+        <Text style={styles.questionText}>{card.question}</Text>
+        <Text style={styles.answerText}>{card.answer}</Text>
         {/* <Text style={styles.answerText}>{flashcard.correct_answer}</Text> */}
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={handlePress}>
@@ -29,7 +24,7 @@ export default function FlashCard( { flashcard } ) {
             colors={['#505050', '#383838']}
             style={styles.addButton}
           >
-            <Text style={styles.textAdd}>Add To Deck</Text>
+            <Text style={styles.textAdd}>Placeholder</Text>
           </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -61,7 +56,7 @@ const styles = StyleSheet.create({
   },
   questionText: {
     color: 'black',
-    fontSize: 18,
+    fontSize: 22,
     paddingLeft: 5,
     textAlign: 'center',
   },
@@ -70,6 +65,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginTop: 15,
     fontWeight: "bold",
+    // display: 'none'
   },
   buttonContainer: {
     paddingTop: 15,
