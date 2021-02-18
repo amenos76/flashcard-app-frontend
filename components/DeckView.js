@@ -9,6 +9,7 @@ export default function DeckView( {deck} ) {
   const state = useContext(AppContext)
 
   const viewDeck = () => {
+    state.setViewSelectedDeck(deck)
     state.setShowDeck(true)
   }
 

@@ -8,6 +8,7 @@ import { AppContext } from '../provider/AppProvider'
 
 import DeckCardView from './DeckCardView'
 import DeckView from './DeckView'
+import DeckCardViewContainer from './DeckCardViewContainer';
 
 export default function DeckList( {decks} ) {
 
@@ -35,22 +36,28 @@ export default function DeckList( {decks} ) {
         <View style={{backgroundColor: "#000000aa", flex: 1}}>
           <View style={styles.modal}>
 
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity onPress={closeModal}>
-              <LinearGradient
-                colors={['#505050', '#383838']}
-                style={styles.backButton}
-              >
-                <Text style={styles.textBack}>Go Back</Text>
-              </LinearGradient>
-              </TouchableOpacity>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity onPress={closeModal}>
+                <LinearGradient
+                  colors={['#505050', '#383838']}
+                  style={styles.backButton}
+                >
+                  <Text style={styles.textBack}>Go Back</Text>
+                </LinearGradient>
+                </TouchableOpacity>
+              </View>
+
+              <Text style={{fontSize: 20, fontWeight: 'bold', paddingRight: 12}}>{state.viewSelectedDeck.deck_name}</Text>
             </View>
+
 
             <Animatable.View 
               style={styles.footer}
               animation="fadeInUpBig"
             >
-              <DeckCardView />
+            <DeckCardViewContainer />
+              
             </Animatable.View>
 
           </View>
@@ -100,7 +107,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingBottom: 15,
-    paddingLeft: 5
+    paddingLeft: 12
     // flexDirection: 'row',
     // justifyContent: 'space-between',
   },
@@ -111,7 +118,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 1,
-    backgroundColor: '#DCDCDC',
+    backgroundColor: '#fff',
     borderRadius: 10
     // paddingVertical: 25,
     // paddingHorizontal: 30
